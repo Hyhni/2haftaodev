@@ -1,0 +1,2 @@
+# 2haftaodev
+Ödev 
