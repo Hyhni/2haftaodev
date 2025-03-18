@@ -1,0 +1,24 @@
+1. Tüm Değerlerin NULL Olduğu Kayıt Sayısı
+
+SELECT COUNT(*) FROM invoice 
+WHERE invoice_id IS NULL AND customer_id IS NULL AND invoice_date IS NULL 
+AND billing_country IS NULL AND total IS NULL;
+
+Sorguyu çalıştırdım, tahmin ettiğim gibi sonuç 0 çıktı. Zaten mantıken de böyle bir kayıt olamazdı. Yine de ödevin gereğini yerine getirdim ve sonucu yorum olarak ekledim.
+
+2. Toplam Değerlerin Orijinal ve İki Katı Halleri
+
+SELECT total AS original_total, total * 2 AS doubled_total 
+FROM invoice 
+ORDER BY doubled_total DESC;
+
+Bu sorguyu çalıştırdığımda, her faturanın orijinal toplamını ve iki katını düzgünce listeledim.
+
+3. Ağustos 2013 için Yeni Adres Alanı
+
+SELECT invoice_id, 
+       SUBSTRING(billing_address FROM 1 FOR 3) || SUBSTRING(billing_address FROM (LENGTH(billing_address) - 3) FOR 4) AS open_address 
+FROM invoice 
+WHERE invoice_date >= '2013-08-01' AND invoice_date < '2013-09-01';
+
+Mesela, adres "123 Main St" olsaydı, bu sorgu "123n St" gibi bir şey döndürürdü.
